@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('HD.jpg') no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+      background-size: cover;
+    }
+    form {
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px 1px #ccc;
+      position: relative;
+    }
+    form .form-group {
+      margin-bottom: 20px;
+    }
+    form .btn-primary {
+      width: 100%;
+    }
+    .login-button {
+      width: 200px;
+      margin: 0 auto;
+      text-align: center;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .login-button .btn {
+      width: 100%;
+      font-size: 16px;
+    }
+    .user-image {
+      width: 80px; 
+      height: 80px; 
+      border-radius: 50%; 
+      position: absolute;
+      top: -40px;
+      left: 50%; 
+      transform: translateX(-50%); 
+    }
+  </style>
+</head>
+<body>
+  <form id="loginForm">
+    <img src="download.png" alt="User" class="user-image">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Email-ID" name="email" required>
+      <div class="invalid-feedback" id="emailInvalidFeedback">Please enter a valid email.</div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+      <div class="invalid-feedback" id="passwordInvalidFeedback">Please enter a valid password (min 6 characters, 1 uppercase, 1 lowercase, 1 special character).</div>
+    </div>
+    <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" id="rememberMe">
+        <label class="form-check-label" for="rememberMe">Remember Me</label>
+    </div>
+    <div class="login-button">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+      <div id="loginMessage" style="margin-top: 10px;"></div>
+  </form>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const loginMessage = document.getElementById('loginMessage');
+
+      
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+        email.classList.add('is-invalid');
+        document.getElementById('emailInvalidFeedback').style.display = 'block';
+      } else {
+        email.classList.remove('is-invalid');
+        document.getElementById('emailInvalidFeedback').style.display = 'none';
+      }
+
+      
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+      if (!password.value.trim() || !passwordRegex.test(password.value.trim())) {
+        password.classList.add('is-invalid');
+        document.getElementById('passwordInvalidFeedback').style.display = 'block';
+      } else {
+        password.classList.remove('is-invalid');
+        document.getElementById('passwordInvalidFeedback').style.display = 'none';
+      }
+
+      
+      if (email.value.trim() && password.value.trim() && emailRegex.test(email.value.trim()) && passwordRegex.test(password.value.trim())) {
+        if (email.value === 'ashu@gmail.com' && password.value === 'Ashu@1206') { 
+          loginMessage.textContent = 'Login successful!';
+          loginMessage.classList.add('text-success');
+        } else {
+          loginMessage.textContent = 'Invalid email or password.';
+          loginMessage.classList.add('text-danger');
+        }
+      } else {
+        loginMessage.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>
